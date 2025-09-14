@@ -16,5 +16,9 @@ def details():
 def health():
     return jsonify({'status': 'up'}), 200
 
+@app.route('/api/v1/about')
+def about():
+    return jsonify({ 'message': 'learning devops'}), 200
+
 if __name__ == '__main__':
     app.run(host="0.0.0.0")
