@@ -8,6 +8,8 @@ on:
 jobs:
   ci:
     runs-on: ubuntu-latest
+    outputs:
+      commit_id: ${{ env.COMMIT_ID }}
     steps:
       -
         name: Login to Docker Hub
@@ -31,6 +33,19 @@ jobs:
     runs-on: self-hosted
     needs: ci
     steps:
+      - 
+        uses: actions/checkout@v4
+      - 
+        name: Modify values file
+        shell: bash
+        run: |
+          pip install yq
+          yq -Yi '.image.tag' = ${{ needs.ci.outputs.commit_id }} charts/python-app/values.yaml
+      - 
+        name: Commit changes
+        uses: EndBug/add-and-commit@v9
+        with:
+          message: "Updates values.yaml with commit ${{ needs.ci.outputs.commit_id }}"
       -
         name: Install ArgoCD CLI
         shell: bash
@@ -38,7 +53,6 @@ jobs:
           curl -ksSL -o argocd https://argocd-server.argocd/download/argocd-linux-amd64
           chmod +x argocd
           sudo mv ./argocd /usr/local/bin/argocd
-
       - 
         name: ArgoCD App Sync
         shell: bash
