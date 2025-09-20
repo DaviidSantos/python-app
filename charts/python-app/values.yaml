@@ -2,7 +2,7 @@ replicaCount: 1
 image:
   repository: odaavidsantos/python-app
   pullPolicy: IfNotPresent
-  tag: d0489a
+  tag: cd2649
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
