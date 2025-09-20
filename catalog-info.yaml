@@ -5,8 +5,8 @@ metadata:
   description: Python application
   # Example for optional annotations
   annotations:
-  github.com/project-slug: daviidsantos/python-app
-  backstage.io/techdocs-ref: dir:.
+    github.com/project-slug: daviidsantos/python-app
+    backstage.io/techdocs-ref: dir:.
 
 spec:
   type: service
